@@ -28,11 +28,12 @@ CMD [ "/bin/bash" ]
 # install pytorch 1.4 and cudatoolkit
 RUN conda install pytorch==1.4.0 torchvision==0.4.0 cudatoolkit=10.0 -c pytorch
 
-# install apex
-RUN git clone --recursive https://github.com/MILVLG/bottom-up-attention.pytorch && \
+# clone and install 
+RUN mkdir /workspace && \
+    cd /workspace && \
+    git clone --recursive https://github.com/MILVLG/bottom-up-attention.pytorch && \
     git clone https://github.com/NVIDIA/apex.git && \
     cd apex && \
     python setup.py install && \
     cd .. && \
-    # install the rest modules
     python setup.py build develop
