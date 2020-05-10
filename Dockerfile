@@ -25,8 +25,8 @@ RUN apt-get install -y curl grep sed dpkg && \
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
 
-# install pytorch 1.4 and cudatoolkit
-RUN conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
+# install pytorch 1.5 and cudatoolkit
+RUN conda install pytorch=1.5 torchvision cudatoolkit=10.2 -c pytorch
 
 # clone and install 
 RUN mkdir /workspace && \
@@ -35,5 +35,5 @@ RUN mkdir /workspace && \
     git clone https://github.com/NVIDIA/apex.git && \
     cd apex && \
     python setup.py install && \
-    cd .. && \
+    cd ../bottom-up-attention.pytorch && \
     python setup.py build develop
