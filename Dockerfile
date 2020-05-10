@@ -26,7 +26,7 @@ ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash" ]
 
 # install pytorch 1.4 and cudatoolkit
-RUN conda install pytorch==1.4.0 torchvision==0.4.0 cudatoolkit=10.0 -c pytorch
+RUN conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
 
 # clone and install 
 RUN mkdir /workspace && \
