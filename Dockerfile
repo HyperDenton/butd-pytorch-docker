@@ -37,6 +37,7 @@ RUN mkdir /workspace && \
     cd /workspace && \
     git clone --recursive https://github.com/MILVLG/bottom-up-attention.pytorch && \
     cd bottom-up-attention.pytorch/detectron2 && \
+    rm -rf build/ **/*.so &&\
     pip install -e . && \
     cd ../.. && \
     git clone https://github.com/NVIDIA/apex.git && \
