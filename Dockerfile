@@ -29,7 +29,7 @@ CMD [ "/bin/bash" ]
 RUN conda install pytorch=1.5 torchvision cudatoolkit=10.2 -c pytorch
 
 # install fvcore, see https://github.com/facebookresearch/detectron2/issues/458
-RUN pip install -U 'git+https://github.com/facebookresearch/fvcore'
+RUN python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
 
 # clone and install, see https://github.com/MILVLG/bottom-up-attention.pytorch
 RUN mkdir /workspace && \
