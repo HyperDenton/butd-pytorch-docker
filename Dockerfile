@@ -29,7 +29,6 @@ CMD [ "/bin/bash" ]
 RUN conda install pytorch=1.5 torchvision cudatoolkit=10.2 -c pytorch
 
 # install fvcore, see https://github.com/facebookresearch/detectron2/issues/458
-RUN python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
 RUN pip install opencv-python
 RUN pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&subdirectory=PythonAPI"
 
@@ -37,6 +36,9 @@ RUN pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools
 RUN mkdir /workspace && \
     cd /workspace && \
     git clone --recursive https://github.com/MILVLG/bottom-up-attention.pytorch && \
+    cd bottom-up-attention.pytorch/detectron2 && \
+    pip install -e . && \
+    cd ../.. && \
     git clone https://github.com/NVIDIA/apex.git && \
     cd apex && \
     python setup.py install && \
