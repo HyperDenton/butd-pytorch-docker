@@ -46,3 +46,5 @@ RUN mkdir /workspace && \
     python setup.py install && \
     cd ../bottom-up-attention.pytorch && \
     python setup.py build develop
+
+WORKDIR /workspace/bottom-up-attention.pytorch

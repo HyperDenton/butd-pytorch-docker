@@ -7,7 +7,7 @@ In order use GPUs inside containers, we'll be using [NVIDIA Container Toolkit](h
 
 Make sure you have installed the NVIDIA driver and Docker 19.03 for your Linux distribution Note that you do not need to install the CUDA toolkit on the host, but the driver needs to be installed.
 
-For more infomation, please visit [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-docker) official repository.
+For more information, please visit [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-docker) official repository.
 
 ### Pull or Build the image
 To  image, you can directly pull from [Dockerhub](https://hub.docker.com)[recommended] or build from the local environment.
@@ -18,9 +18,25 @@ To  image, you can directly pull from [Dockerhub](https://hub.docker.com)[recomm
 will pull the latest image from dockerhub. Use `sudo` if needed.
 
 #### To Build
+Pull the Dockerfile:
 `git clone https://github.com/HyperDenton/butd-pytorch-docker`
+
+Goto the repo directory:
 `cd butd-pytorch-docker`
+
+Build the image:
 `docker build .`
 
 ### Try the image
-`sudo docker run --rm -it denton35/butd-pytorch-docker`
+Start the image and enter the image `bash`:
+`sudo docker run --gpus all --rm -it denton35/butd-pytorch-docker`
+
+in which
+
+`--gpus all` to enable [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-docker);
+
+`--rm` to remove the image after use;
+
+`-it` to enter the image `bash`.
+
+For more usage of Docker, please visit [Docker Reference Page](https://docs.docker.com/engine/reference/builder/).
