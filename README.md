@@ -40,3 +40,21 @@ in which
 `-it` to enter the image `bash`.
 
 For more usage of Docker, please visit [Docker Reference Page](https://docs.docker.com/engine/reference/builder/).
+
+### FAQ
+#### `docker pull` too slow
+Consider using docker accelerator:
+
+  ```bash
+  sudo mkdir -p /etc/docker
+  sudo tee /etc/docker/daemon.json <<-'EOF'
+  {
+    "registry-mirrors": ["https://****.****.****.com"]
+  }
+  EOF
+  sudo systemctl daemon-reload
+  sudo systemctl restart docker
+  ```
+where `https://****.****.****.com` is your address of your accelerator.
+
+To get address accelerator, you might need to register to the docker accelerator service provider, e.g. [Aliyun](https://cr.console.aliyun.com/#/accelerator)
