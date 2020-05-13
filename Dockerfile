@@ -31,17 +31,19 @@ RUN conda install pytorch=1.5 torchvision cudatoolkit=10.2 -c pytorch
 # install fvcore, see https://github.com/facebookresearch/detectron2/issues/458
 RUN pip install opencv-python
 RUN pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&subdirectory=PythonAPI"
+RUN pip install 'git+https://github.com/facebookresearch/detectron2.git@v0.1'
 
 # clone and install, see https://github.com/MILVLG/bottom-up-attention.pytorch
-RUN mkdir /workspace && \
-    cd /workspace && \
-    git clone https://github.com/MILVLG/bottom-up-attention.pytorch && \
-    pip install detectron2==0.1 && \
-    .. && \
+RUN mkdir /workspace
+
+RUN cd /workspace && \
     git clone https://github.com/NVIDIA/apex.git && \
     cd apex && \
-    python setup.py install && \
-    cd ../bottom-up-attention.pytorch && \
+    python setup.py install
+
+RUN cd /workspace && \
+    git clone https://github.com/MILVLG/bottom-up-attention.pytorch && \
+    bottom-up-attention.pytorch && \
     python setup.py build develop
 
 WORKDIR /workspace/bottom-up-attention.pytorch
