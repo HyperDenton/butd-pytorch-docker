@@ -43,7 +43,7 @@ RUN cd /workspace && \
 
 RUN cd /workspace && \
     git clone https://github.com/MILVLG/bottom-up-attention.pytorch && \
-    bottom-up-attention.pytorch && \
+    cd bottom-up-attention.pytorch && \
     python setup.py build develop
 
 WORKDIR /workspace/bottom-up-attention.pytorch
