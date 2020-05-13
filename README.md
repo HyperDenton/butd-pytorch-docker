@@ -29,7 +29,8 @@ Build the image:
 
 ### Try the image
 Start the image and enter the image `bash`:
-`sudo docker run --gpus all --rm -it denton35/butd-pytorch-docker`
+
+`sudo docker run --gpus all --rm -it -v <absolute-path-to-repo>/bottom-up-attention.pytorch:/workspace/bottom-up-attention.pytorch denton35/butd-pytorch-docker`
 
 in which
 
@@ -37,12 +38,27 @@ in which
 
 `--rm` to remove the image after use;
 
-`-it` to enter the image `bash`.
+`-it` to enter the image `bash`;
+
+`-v <local-path>:<image-path>` to access host system's directory.
 
 For more usage of Docker, please visit [Docker Reference Page](https://docs.docker.com/engine/reference/builder/).
 
+#### Feature extraction
+
+##### Set up
+If it's the first time you run the script or you made changes to the source code, please run under repo directory inside the image:
+
+`python setup.py build develop`
+
+##### Demo
+
+`python3 extract_features.py --mode caffe --config-file configs/bua-caffe/extract-bua-caffe-r101.yaml --image-dir datasets/demo/ --out-dir output/ --resume`
+
+this will extract every image in `<datasets/demo/>` and put the features to `<output/>` directory.
+
 ### FAQ
-#### `docker pull` too slow
+#### `docker pull` takes too long
 Consider using docker accelerator:
 
   ```bash
