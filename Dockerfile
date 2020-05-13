@@ -35,12 +35,9 @@ RUN pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools
 # clone and install, see https://github.com/MILVLG/bottom-up-attention.pytorch
 RUN mkdir /workspace && \
     cd /workspace && \
-    git clone --recursive https://github.com/MILVLG/bottom-up-attention.pytorch && \
-    cd bottom-up-attention.pytorch/detectron2 && \
-    pip uninstall detectron2 && \
-    rm -rf build/ **/*.so &&\
-    pip install -e . && \
-    cd ../.. && \
+    git clone https://github.com/MILVLG/bottom-up-attention.pytorch && \
+    pip install detectron2==0.1 && \
+    .. && \
     git clone https://github.com/NVIDIA/apex.git && \
     cd apex && \
     python setup.py install && \
