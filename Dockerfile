@@ -31,7 +31,7 @@ RUN conda install pytorch=1.5 torchvision cudatoolkit=10.2 -c pytorch
 # install fvcore, see https://github.com/facebookresearch/detectron2/issues/458
 RUN pip install opencv-python
 RUN pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&subdirectory=PythonAPI"
-RUN pip install 'git+https://github.com/facebookresearch/detectron2.git@v0.1'
+RUN pip install 'git+https://github.com/facebookresearch/detectron2.git@5e2a6f62ef752c8b8c700d2e58405e4bede3ddbe'
 
 # clone and install, see https://github.com/MILVLG/bottom-up-attention.pytorch
 RUN mkdir /workspace
