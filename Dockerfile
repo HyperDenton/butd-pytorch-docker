@@ -36,7 +36,7 @@ RUN pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools
 # clone and install, see https://github.com/MILVLG/bottom-up-attention.pytorch
 RUN pip install wget
 RUN pip install streamlit
-RUN apt install ffmpeg libsm6 libxtext6
+RUN apt install ffmpeg libsm6 libxext6 -y
 RUN mkdir /workspace
 
 RUN cd /workspace && \
