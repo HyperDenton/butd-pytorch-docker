@@ -34,6 +34,9 @@ RUN pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools
 # RUN pip install 'git+https://github.com/facebookresearch/detectron2.git@5e2a6f62ef752c8b8c700d2e58405e4bede3ddbe'
 
 # clone and install, see https://github.com/MILVLG/bottom-up-attention.pytorch
+RUN pip install wget
+RUN pip install streamlit
+RUN apt install ffmpeg libsm6 libxtext6
 RUN mkdir /workspace
 
 RUN cd /workspace && \
