@@ -1,14 +1,12 @@
 FROM nvidia/cuda:10.1-cudnn7-devel
 
+# install python
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
-	python3-opencv ca-certificates python3-dev git wget sudo  \
+	python3-opencv ca-certificates python3-dev python3-pip git wget sudo  \
 	cmake ninja-build protobuf-compiler libprotobuf-dev && \
   rm -rf /var/lib/apt/lists/*
 RUN ln -sv /usr/bin/python3 /usr/bin/python
-RUN wget https://bootstrap.pypa.io/get-pip.py && \
-	python3 get-pip.py --user && \
-	rm get-pip.py
 
 # install detectron2
 RUN pip install tensorboard
