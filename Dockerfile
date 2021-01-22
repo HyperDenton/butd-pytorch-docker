@@ -6,6 +6,9 @@ RUN apt-get update && apt-get install -y \
 	cmake ninja-build protobuf-compiler libprotobuf-dev && \
   rm -rf /var/lib/apt/lists/*
 RUN ln -sv /usr/bin/python3 /usr/bin/python
+RUN wget https://bootstrap.pypa.io/get-pip.py && \
+	python3 get-pip.py --user && \
+	rm get-pip.py
 
 # install detectron2
 RUN pip install tensorboard
