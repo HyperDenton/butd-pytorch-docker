@@ -14,8 +14,8 @@ RUN pip3 install torch==1.5 torchvision==0.6 -f https://download.pytorch.org/whl
 RUN pip3 install 'git+https://github.com/facebookresearch/fvcore'
 
 RUN mkdir /workspace && cd /workspace
-RUN git clone https://github.com/facebookresearch/detectron2 detectron2_repo
-RUN cd /workspace/detectron2_repo && git reset --hard be792b959bca9af0aacfa04799537856c7a92802 && cd /workspace
+RUN git clone https://github.com/facebookresearch/detectron2
+RUN cd /workspace/detectron2 && git reset --hard be792b959bca9af0aacfa04799537856c7a92802 && cd /workspace
 ENV FORCE_CUDA="1"
 ARG TORCH_CUDA_ARCH_LIST="Kepler;Kepler+Tesla;Maxwell;Maxwell+Tegra;Pascal;Volta;Turing"
 ENV TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}"
