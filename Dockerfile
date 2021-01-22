@@ -1,51 +1,38 @@
-FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.1-cudnn7-devel
 
-# install anaconda 5.2.0
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-ENV PATH /opt/conda/bin:$PATH
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && apt-get install -y \
+	python3-opencv ca-certificates python3-dev git wget sudo  \
+	cmake ninja-build protobuf-compiler libprotobuf-dev && \
+  rm -rf /var/lib/apt/lists/*
+RUN ln -sv /usr/bin/python3 /usr/bin/python
 
-RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificates \
-    libglib2.0-0 libxext6 libsm6 libxrender1 \
-    git mercurial subversion
-
-RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh -O ~/anaconda.sh && \
-    /bin/bash ~/anaconda.sh -b -p /opt/conda && \
-    rm ~/anaconda.sh && \
-    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate base" >> ~/.bashrc
-
-RUN apt-get install -y curl grep sed dpkg && \
-    TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` && \
-    curl -L "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini_${TINI_VERSION}.deb" > tini.deb && \
-    dpkg -i tini.deb && \
-    rm tini.deb && \
-    apt-get clean
-
-ENTRYPOINT [ "/usr/bin/tini", "--" ]
-CMD [ "/bin/bash" ]
-
-# install pytorch 1.5 and cudatoolkit
-RUN conda install pytorch=1.5 torchvision cudatoolkit=10.2 -c pytorch
-
-# install fvcore, see https://github.com/facebookresearch/detectron2/issues/458
-RUN pip install opencv-python
-RUN pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&subdirectory=PythonAPI"
-RUN pip install --ignore-installed 'git+https://github.com/facebookresearch/detectron2.git@be792b959bca9af0aacfa04799537856c7a92802'
-
-# clone and install, see https://github.com/MILVLG/bottom-up-attention.pytorch
-RUN pip install wget
-RUN pip install streamlit
-RUN apt install ffmpeg libsm6 libxext6 -y
+# install detectron2
+RUN pip install tensorboard
+RUN pip install torch==1.5 torchvision==0.6 -f https://download.pytorch.org/whl/cu101/torch_stable.html
+RUN pip install 'git+https://github.com/facebookresearch/fvcore'
+RUN git clone https://github.com/facebookresearch/detectron2 detectron2_repo
 RUN mkdir /workspace
+RUN cd /workspace/detectron_repo && git reset --hard be792b959bca9af0aacfa04799537856c7a92802 && cd /workspace
+ENV FORCE_CUDA="1"
+ARG TORCH_CUDA_ARCH_LIST="Kepler;Kepler+Tesla;Maxwell;Maxwell+Tegra;Pascal;Volta;Turing"
+ENV TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}"
+RUN pip install -e detectron2_repo
 
+# install apex
 RUN cd /workspace && \
     git clone https://github.com/NVIDIA/apex.git && \
     cd apex && \
     python setup.py install
+    
+# clone and install, see https://github.com/MILVLG/bottom-up-attention.pytorch
+RUN pip install wget
+RUN pip install streamlit
+RUN pip install ray
+RUN apt install ffmpeg libsm6 libxext6 -y
 
 RUN cd /workspace && \
-    git clone --recursive https://github.com/MILVLG/bottom-up-attention.pytorch && \
+    git clone https://github.com/MILVLG/bottom-up-attention.pytorch && \
     cd bottom-up-attention.pytorch && \
     python setup.py build develop
 
