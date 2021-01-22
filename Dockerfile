@@ -11,7 +11,7 @@ RUN ln -sv /usr/bin/python3 /usr/bin/python
 # install detectron2
 RUN pip3 --no-cache-dir install tensorboard
 RUN pip3 --no-cache-dir install torch==1.5 torchvision==0.6 -f https://download.pytorch.org/whl/cu101/torch_stable.html
-RUN pip3 install 'git+https://github.com/facebookresearch/fvcore'
+RUN pip3 --no-cache-dir install 'git+https://github.com/facebookresearch/fvcore'
 
 RUN mkdir /workspace
 RUN git clone https://github.com/facebookresearch/detectron2 /workspace/detectron2
@@ -19,7 +19,7 @@ RUN cd /workspace/detectron2 && git reset --hard be792b959bca9af0aacfa0479953785
 ENV FORCE_CUDA="1"
 ARG TORCH_CUDA_ARCH_LIST="Kepler;Kepler+Tesla;Maxwell;Maxwell+Tegra;Pascal;Volta;Turing"
 ENV TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}"
-RUN pip3 install -e /workspace/detectron2
+RUN pip3 --no-cache-dir install -e /workspace/detectron2
 
 # install apex
 RUN cd /workspace && \
