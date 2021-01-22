@@ -31,7 +31,6 @@ RUN cd /workspace && \
 RUN pip3 install wget
 RUN pip3 install streamlit
 RUN pip3 install ray
-RUN apt install libav-tools libsm6 libxext6 -y
 
 RUN cd /workspace && \
     git clone https://github.com/MILVLG/bottom-up-attention.pytorch && \
