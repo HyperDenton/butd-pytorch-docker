@@ -9,16 +9,16 @@ RUN apt-get update && apt-get install -y \
 RUN ln -sv /usr/bin/python3 /usr/bin/python
 
 # install detectron2
-RUN pip install tensorboard
-RUN pip install torch==1.5 torchvision==0.6 -f https://download.pytorch.org/whl/cu101/torch_stable.html
-RUN pip install 'git+https://github.com/facebookresearch/fvcore'
+RUN pip3 install tensorboard
+RUN pip3 install torch==1.5 torchvision==0.6 -f https://download.pytorch.org/whl/cu101/torch_stable.html
+RUN pip3 install 'git+https://github.com/facebookresearch/fvcore'
 RUN git clone https://github.com/facebookresearch/detectron2 detectron2_repo
 RUN mkdir /workspace
 RUN cd /workspace/detectron_repo && git reset --hard be792b959bca9af0aacfa04799537856c7a92802 && cd /workspace
 ENV FORCE_CUDA="1"
 ARG TORCH_CUDA_ARCH_LIST="Kepler;Kepler+Tesla;Maxwell;Maxwell+Tegra;Pascal;Volta;Turing"
 ENV TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}"
-RUN pip install -e detectron2_repo
+RUN pip3 install -e detectron2_repo
 
 # install apex
 RUN cd /workspace && \
@@ -27,9 +27,9 @@ RUN cd /workspace && \
     python setup.py install
     
 # clone and install, see https://github.com/MILVLG/bottom-up-attention.pytorch
-RUN pip install wget
-RUN pip install streamlit
-RUN pip install ray
+RUN pip3 install wget
+RUN pip3 install streamlit
+RUN pip3 install ray
 RUN apt install ffmpeg libsm6 libxext6 -y
 
 RUN cd /workspace && \
