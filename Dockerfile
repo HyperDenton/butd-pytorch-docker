@@ -13,6 +13,7 @@ RUN pip3 --no-cache-dir install tensorboard
 RUN pip3 --no-cache-dir install torch==1.5 torchvision==0.6 -f https://download.pytorch.org/whl/cu101/torch_stable.html
 RUN pip3 --no-cache-dir install 'git+https://github.com/facebookresearch/fvcore'
 
+RUN pip3 install scikit-build
 RUN pip3 install opencv-python
 RUN pip3 install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&subdirectory=PythonAPI"
 RUN pip3 install 'git+https://github.com/facebookresearch/detectron2.git@be792b959bca9af0aacfa04799537856c7a92802'
