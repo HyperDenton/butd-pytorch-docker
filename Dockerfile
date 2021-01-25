@@ -28,6 +28,7 @@ RUN cd /workspace && \
 RUN pip3 install wget
 RUN pip3 install streamlit
 RUN pip3 install ray
+RUN pip3 install cython
 
 RUN cd /workspace && \
     git clone https://github.com/MILVLG/bottom-up-attention.pytorch && \
