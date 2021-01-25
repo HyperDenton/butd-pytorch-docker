@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
 	cmake ninja-build protobuf-compiler libprotobuf-dev && \
   rm -rf /var/lib/apt/lists/*
 RUN ln -sv /usr/bin/python3 /usr/bin/python
+RUN mkdir /workspace
 
 # install detectron2
 RUN pip3 --no-cache-dir install tensorboard
