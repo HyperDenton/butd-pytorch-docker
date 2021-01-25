@@ -10,29 +10,29 @@ RUN ln -sv /usr/bin/python3 /usr/bin/python
 RUN mkdir /workspace
 
 # install detectron2
-RUN pip3 --no-cache-dir install tensorboard
-RUN pip3 --no-cache-dir install torch==1.5 torchvision==0.6 -f https://download.pytorch.org/whl/cu101/torch_stable.html
-RUN pip3 --no-cache-dir install 'git+https://github.com/facebookresearch/fvcore'
+RUN pip3 --no-cache-dir install tensorboard -i https://mirrors.aliyun.com/pypi/simple
+RUN pip3 --no-cache-dir install torch==1.5 torchvision==0.6 -f https://download.pytorch.org/whl/cu101/torch_stable.html -i https://mirrors.aliyun.com/pypi/simple
+RUN pip3 --no-cache-dir install 'git+https://gitee.com/HyperDenton/fvcore' -i https://mirrors.aliyun.com/pypi/simple
 
-RUN pip3 install scikit-build
-RUN pip3 install opencv-python
-RUN pip3 install cython
-RUN pip3 install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&subdirectory=PythonAPI"
-RUN pip3 install 'git+https://github.com/facebookresearch/detectron2.git@be792b959bca9af0aacfa04799537856c7a92802'
+RUN pip3 install scikit-build -i https://mirrors.aliyun.com/pypi/simple
+RUN pip3 install opencv-python -i https://mirrors.aliyun.com/pypi/simple
+RUN pip3 install cython -i https://mirrors.aliyun.com/pypi/simple
+RUN pip3 install "git+https://gitee.com/HyperDenton/cocoapi.git#egg=pycocotools&subdirectory=PythonAPI" -i https://mirrors.aliyun.com/pypi/simple
+RUN pip3 install 'git+https://gitee.com/HyperDenton/detectron2.git@be792b959bca9af0aacfa04799537856c7a92802' -i https://mirrors.aliyun.com/pypi/simple
 
 # install apex
 RUN cd /workspace && \
-    git clone https://github.com/NVIDIA/apex.git && \
+    git clone https://gitee.com/HyperDenton/apex.git && \
     cd apex && \
     python setup.py install
     
 # clone and install, see https://github.com/MILVLG/bottom-up-attention.pytorch
-RUN pip3 install wget
-RUN pip3 install streamlit
-RUN pip3 install ray
+RUN pip3 install wget -i https://mirrors.aliyun.com/pypi/simple
+RUN pip3 install streamlit -i https://mirrors.aliyun.com/pypi/simple
+RUN pip3 install ray -i https://mirrors.aliyun.com/pypi/simple
 
 RUN cd /workspace && \
-    git clone https://github.com/MILVLG/bottom-up-attention.pytorch && \
+    git clone https://gitee.com/HyperDenton/bottom-up-attention.pytorch && \
     cd bottom-up-attention.pytorch && \
     python setup.py build develop
 
