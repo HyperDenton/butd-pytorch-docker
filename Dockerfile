@@ -15,6 +15,7 @@ RUN pip3 --no-cache-dir install 'git+https://github.com/facebookresearch/fvcore'
 
 RUN pip3 install scikit-build
 RUN pip3 install opencv-python
+RUN pip3 install cython
 RUN pip3 install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&subdirectory=PythonAPI"
 RUN pip3 install 'git+https://github.com/facebookresearch/detectron2.git@be792b959bca9af0aacfa04799537856c7a92802'
 
@@ -28,7 +29,6 @@ RUN cd /workspace && \
 RUN pip3 install wget
 RUN pip3 install streamlit
 RUN pip3 install ray
-RUN pip3 install cython
 
 RUN cd /workspace && \
     git clone https://github.com/MILVLG/bottom-up-attention.pytorch && \
